@@ -41,4 +41,4 @@ jobs:
     - name: Test with pytest
       run: |
         python send_report.py
-        python test.py
+        python test
