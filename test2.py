@@ -1,18 +1,32 @@
 import yfinance as yf
 import pandas as pd
+from sklearn.linear_model import LinearRegression
 
-# Ambil data saham (contoh BBCA)
-ticker = "BBCA.JK"
-data = yf.download(ticker, period="6mo", interval="1d")
+# Daftar emiten IDX
+tickers = ["BBCA.JK", "TLKM.JK", "BBRI.JK", "ASII.JK"]
 
-# Hitung moving average
-data["MA5"] = data["Close"].rolling(5).mean()
-data["MA20"] = data["Close"].rolling(20).mean()
+results = []
 
-# Deteksi volume spike (volume > 1.5x rata-rata 20 hari)
-data["VolSpike"] = data["Volume"] > 1.5 * data["Volume"].rolling(20).mean()
+for ticker in tickers:
+    data = yf.download(ticker, period="6mo", interval="1d")
+    data["Target"] = data["Close"].shift(-1)
+    data = data.dropna()
 
-# Sinyal sederhana: MA5 > MA20 dan volume spike
-data["Signal"] = (data["MA5"] > data["MA20"]) & data["VolSpike"]
+    X = data[["Close", "Volume"]]
+    y = data["Target"]
 
-print(data.tail(10)[["Close", "MA5", "MA20", "Volume", "VolSpike", "Signal"]])
+    model = LinearRegression()
+    model.fit(X, y)
+
+    last_row = data.iloc[-1][["Close", "Volume"]].values.reshape(1, -1)
+    predicted_price = model.predict(last_row)[0]
+
+    results.append({
+        "Ticker": ticker,
+        "Last_Close": data.iloc[-1]["Close"],
+        "Predicted_Next": predicted_price
+    })
+
+df_results = pd.DataFrame(results)
+print(df_results)
+
