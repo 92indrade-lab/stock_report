@@ -1,6 +1,6 @@
 import requests
 
-BOT_TOKEN = "8389454308:AAH7iiQ5W9GfCxYhZQsxfWd74TpcpEQOfhQ"
+BOT_TOKEN = "8389454308:AAH7iiQ5WG9fCxYhZQsxfWd74TpcpEQOfhQ"
 CHAT_ID = "1670726615"
 
 message = "Tes kirim pesan dari GitHub Actions 🚀"
