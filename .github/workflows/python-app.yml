@@ -8,6 +8,8 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  schedule:
+    - cron: "0 13 * * 1-5"   # 13 UTC = 20:00 WIB (Senin–Jumat)
 
 permissions:
   contents: read
