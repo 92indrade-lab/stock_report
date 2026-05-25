@@ -1,4 +1,4 @@
 requests
-yfinance
+yfiyfinance>=0.2.0
 pandas
 scikit-learn
