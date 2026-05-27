@@ -9,7 +9,7 @@ on:
   pull_request:
     branches: [ "main" ]
   schedule:
-    - cron: "*/5 * * * *"   # 13 UTC = 20:00 WIB (Senin–Jumat)
+    - cron: "*/7 * * * *"   # 13 UTC = 20:00 WIB (Senin–Jumat)
   workflow_dispatch:
 
 permissions:
